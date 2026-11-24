@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post-Operative MSK Rehabilitation Course: Participant Evaluation Survey</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            clinical: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              200: '#99f6e4',
+              600: '#0d9488',
+              700: '#0f766e',
+              800: '#115e59',
+              900: '#134e4a',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+      }
+      .print-shadow-none {
+        box-shadow: none !important;
+        border: 1px solid #e2e8f0 !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- Top Navigation & Progress Bar -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-slate-200 no-print">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-lg bg-clinical-700 text-white flex items-center justify-center shadow-sm">
+          <!-- Medical / Physiotherapy Cross & Pulse Icon -->
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+        </div>
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-clinical-700 block">MSK Post-Op Rehab</span>
+          <span class="text-sm font-semibold text-slate-800 hidden sm:inline">6-Day Intensive Course Evaluation</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          id="navSurveyBtn"
+          onclick="switchView('survey')"
+          class="px-3.5 py-2 rounded-lg text-sm font-medium bg-clinical-700 text-white shadow-sm transition hover:bg-clinical-800"
+        >
+          Survey Form
+        </button>
+        <button
+          type="button"
+          id="navInstructorBtn"
+          onclick="switchView('instructor')"
+          class="px-3.5 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition flex items-center gap-1.5"
+        >
+          <span>Instructor Summary</span>
+          <span id="responseCountBadge" class="inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold rounded-full bg-clinical-100 text-clinical-800">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Real-time Required Completion Progress Bar -->
+    <div id="progressBarContainer" class="w-full bg-slate-100 h-1.5">
+      <div id="progressBarFill" class="bg-clinical-600 h-1.5 transition-all duration-300" style="width: 0%;"></div>
+    </div>
+  </header>
+
+  <!-- Floating Toast Notification -->
+  <div id="toastMessage" class="fixed bottom-5 right-5 z-50 hidden transform transition-all duration-300 no-print">
+    <div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-2.5 text-sm font-medium">
+      <svg class="w-5 h-5 text-teal-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+      </svg>
+      <span id="toastText">Action completed</span>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-10">
+
+    <!-- ==================== VIEW 1: SURVEY FORM ==================== -->
+    <div id="surveyView" class="space-y-6">
+      <!-- Header Card -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden print-shadow-none">
+        <div class="bg-gradient-to-r from-clinical-800 via-clinical-700 to-slate-800 px-6 sm:px-8 py-7 text-white">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 text-teal-100 text-xs font-medium mb-3">
+            <span>Physiotherapist Continuing Education</span>
+            <span>&bull;</span>
+            <span>6-Day Intensive</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight leading-snug">
+            Post-Operative MSK Rehabilitation Course: Participant Evaluation Survey
+          </h1>
+          <p class="mt-3 text-slate-100 text-sm sm:text-base leading-relaxed">
+            Thank you for attending our 6-day intensive course covering Arthroplasty, Arthroscopy, Trauma, Spine Surgeries, and Tendon Repairs. As fellow physiotherapists, your clinical insight and feedback are invaluable in helping us refine our training and plan future workshops.
+          </p>
+        </div>
+
+        <!-- Optional Participant Details -->
+        <div class="px-6 sm:px-8 py-5 bg-slate-50/70 border-t border-slate-100">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-500">Participant Details (Optional)</h2>
+            <span class="text-xs text-slate-400">Fields marked * are required</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="participantName" class="block text-sm font-medium text-slate-700 mb-1">Full Name (Optional)</label>
+              <input
+                type="text"
+                id="participantName"
+                placeholder="e.g., Dr. Sarah Ahmed, PT"
+                class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-clinical-600 focus:outline-none focus:ring-2 focus:ring-clinical-600/20 transition"
+              />
+            </div>
+            <div>
+              <label for="clinicalSpecialty" class="block text-sm font-medium text-slate-700 mb-1">Clinical Specialty / Setting (Optional)</label>
+              <input
+                type="text"
+                id="clinicalSpecialty"
+                placeholder="e.g., Sports Medicine, Outpatient Ortho, Hospital"
+                class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-clinical-600 focus:outline-none focus:ring-2 focus:ring-clinical-600/20 transition"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Validation Alert Banner -->
+      <div id="validationBanner" class="hidden rounded-xl bg-rose-50 border border-rose-200 p-4 text-rose-800 text-sm flex items-start gap-3">
+        <svg class="w-5 h-5 text-rose-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div>
+          <p class="font-semibold">Please complete all required questions (Questions 1–6) before submitting.</p>
+          <p id="validationDetails" class="text-rose-700 mt-1 text-xs"></p>
+        </div>
+      </div>
+
+      <form id="evaluationForm" novalidate class="space-y-6">
+        <!-- SECTION 1: CORE COURSE EVALUATION -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 print-shadow-none">
+          <div class="border-b border-slate-100 pb-4 mb-5">
+            <span class="text-xs font-bold uppercase tracking-wider text-clinical-700">Section 1</span>
+            <h2 class="text-xl font-bold text-slate-900 mt-0.5">Core Course Evaluation</h2>
+            <p class="text-sm text-slate-600 mt-2">
+              Please rate the following aspects of the course on a scale from <strong>0 to 5</strong>, where:
+            </p>
+            <div class="mt-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-xs">
+              <div class="rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1.5 text-slate-700"><span class="font-bold text-slate-900">0</span> = Very Poor / Unsatisfactory</div>
+              <div class="rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1.5 text-slate-700"><span class="font-bold text-slate-900">1</span> = Poor</div>
+              <div class="rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1.5 text-slate-700"><span class="font-bold text-slate-900">2</span> = Fair</div>
+              <div class="rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1.5 text-slate-700"><span class="font-bold text-slate-900">3</span> = Good</div>
+              <div class="rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1.5 text-slate-700"><span class="font-bold text-slate-900">4</span> = Very Good</div>
+              <div class="rounded-lg bg-clinical-50 border border-clinical-200 px-2.5 py-1.5 text-clinical-900"><span class="font-bold">5</span> = Excellent / Outstanding</div>
+            </div>
+          </div>
+
+          <!-- Rating Criteria Container -->
+          <div id="coreCriteriaContainer" class="space-y-5"></div>
+        </section>
+
+        <!-- SECTION 2: OVERALL EXPERIENCE & RECOMMENDATION -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 print-shadow-none space-y-7">
+          <div class="border-b border-slate-100 pb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-clinical-700">Section 2</span>
+            <h2 class="text-xl font-bold text-slate-900 mt-0.5">Overall Experience &amp; Recommendation</h2>
+          </div>
+
+          <!-- Question 5 -->
+          <div id="q5Wrapper" class="rounded-xl p-1 transition">
+            <label class="block text-base font-semibold text-slate-900 mb-3">
+              5. Overall, how did you find the course? <span class="text-rose-600">*</span>
+              <span class="block text-xs font-normal text-slate-500 mt-0.5">(Select one)</span>
+            </label>
+            <div class="space-y-2.5" id="q5Options"></div>
+            <p id="q5Error" class="hidden text-xs font-medium text-rose-600 mt-2">Please select an option for Question 5.</p>
+          </div>
+
+          <!-- Question 6 -->
+          <div id="q6Wrapper" class="rounded-xl p-1 transition pt-2 border-t border-slate-100">
+            <label class="block text-base font-semibold text-slate-900 mb-3">
+              6. Would you recommend this course to other physiotherapists? <span class="text-rose-600">*</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="q6Options"></div>
+            <p id="q6Error" class="hidden text-xs font-medium text-rose-600 mt-2">Please select an option for Question 6.</p>
+          </div>
+        </section>
+
+        <!-- SECTION 3: OPEN FEEDBACK & FUTURE COURSES -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 print-shadow-none space-y-7">
+          <div class="border-b border-slate-100 pb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-clinical-700">Section 3</span>
+            <h2 class="text-xl font-bold text-slate-900 mt-0.5">Open Feedback &amp; Future Courses</h2>
+          </div>
+
+          <!-- Question 7 -->
+          <div>
+            <label class="block text-base font-semibold text-slate-900 mb-1">
+              7. Which module(s) did you find most valuable for your clinical practice?
+            </label>
+            <p class="text-xs text-slate-500 mb-3">(Optional — select all that apply)</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="q7Options"></div>
+          </div>
+
+          <!-- Question 8 -->
+          <div class="pt-2 border-t border-slate-100">
+            <label for="q8Recommendations" class="block text-base font-semibold text-slate-900 mb-2">
+              8. What are your recommendations to improve this course?
+            </label>
+            <textarea
+              id="q8Recommendations"
+              rows="3"
+              placeholder="e.g., pacing over the 6 days, more hands-on practice, specific surgical protocols, case studies, or course materials"
+              class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:border-clinical-600 focus:outline-none focus:ring-2 focus:ring-clinical-600/20 transition"
+            ></textarea>
+          </div>
+
+          <!-- Question 9 -->
+          <div class="pt-2 border-t border-slate-100">
+            <label for="q9FutureCourses" class="block text-base font-semibold text-slate-900 mb-2">
+              9. What further courses or advanced topics would you be interested in attending?
+            </label>
+            <textarea
+              id="q9FutureCourses"
+              rows="3"
+              placeholder="e.g., Advanced Sports Medicine, Return-to-Sport Testing, Diagnostic MSK Ultrasound, Dry Needling, Specific Joint Masterclasses"
+              class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:border-clinical-600 focus:outline-none focus:ring-2 focus:ring-clinical-600/20 transition"
+            ></textarea>
+          </div>
+        </section>
+
+        <!-- Form Actions -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 no-print">
+          <button
+            type="button"
+            onclick="resetForm()"
+            class="w-full sm:w-auto px-5 py-3 rounded-xl border border-slate-300 bg-white text-slate-700 text-sm font-medium hover:bg-slate-50 transition"
+          >
+            Clear Form
+          </button>
+
+          <div class="flex items-center gap-3 w-full sm:w-auto">
+            <span id="completionStatusText" class="text-xs font-medium text-slate-500 hidden sm:inline">0 of 6 required answered</span>
+            <button
+              type="submit"
+              class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-clinical-700 text-white text-sm font-semibold shadow-md hover:bg-clinical-800 focus:outline-none focus:ring-4 focus:ring-clinical-600/30 transition flex items-center justify-center gap-2"
+            >
+              <span>Submit Evaluation</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- ==================== VIEW 2: CONFIRMATION SUMMARY SCREEN ==================== -->
+    <div id="confirmationView" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden print-shadow-none">
+        <!-- Banner -->
+        <div class="bg-gradient-to-r from-clinical-800 to-slate-800 px-6 sm:px-8 py-7 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-start gap-3.5">
+            <div class="w-11 h-11 rounded-full bg-teal-400/20 border border-teal-300/30 flex items-center justify-center shrink-0 mt-0.5">
+              <svg class="w-6 h-6 text-teal-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-wider text-teal-200">Evaluation Recorded</span>
+              <h2 class="text-2xl font-bold mt-0.5">Thank You for Your Feedback!</h2>
+              <p class="text-sm text-slate-200 mt-1">Your evaluation for the Post-Operative MSK Rehabilitation Course has been saved.</p>
+            </div>
+          </div>
+
+          <!-- Average Score Badge -->
+          <div class="bg-white/10 backdrop-blur border border-white/15 rounded-2xl px-5 py-3.5 text-center shrink-0">
+            <span class="text-xs uppercase tracking-wider text-teal-100 block">Mean Core Score</span>
+            <div class="text-3xl font-bold text-white mt-0.5">
+              <span id="summaryAvgScore">0.0</span><span class="text-base font-normal text-teal-200"> / 5.0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detailed Summary Body -->
+        <div id="summaryContentBody" class="p-6 sm:p-8 space-y-6"></div>
+
+        <!-- Export & Action Buttons -->
+        <div class="px-6 sm:px-8 py-5 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3 no-print">
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button
+              type="button"
+              onclick="copySummaryToClipboard()"
+              class="px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-700 text-sm font-medium hover:bg-slate-100 transition flex items-center gap-2"
+            >
+              <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              <span>Copy Formatted Text</span>
+            </button>
+            <button
+              type="button"
+              onclick="downloadSingleCSV()"
+              class="px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-700 text-sm font-medium hover:bg-slate-100 transition flex items-center gap-2"
+            >
+              <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              <span>Download CSV</span>
+            </button>
+            <button
+              type="button"
+              onclick="downloadSingleJSON()"
+              class="px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-700 text-sm font-medium hover:bg-slate-100 transition flex items-center gap-2"
+            >
+              <span>JSON</span>
+            </button>
+            <button
+              type="button"
+              onclick="window.print()"
+              class="px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-700 text-sm font-medium hover:bg-slate-100 transition flex items-center gap-2"
+            >
+              <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+              </svg>
+              <span>Print</span>
+            </button>
+          </div>
+
+          <button
+            type="button"
+            onclick="startAnotherResponse()"
+            class="px-5 py-2.5 rounded-xl bg-clinical-700 text-white text-sm font-semibold hover:bg-clinical-800 transition shadow-sm"
+          >
+            Submit Another Response
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== VIEW 3: INSTRUCTOR SUMMARY DASHBOARD ==================== -->
+    <div id="instructorView" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-clinical-700">Course Analytics</span>
+            <h2 class="text-2xl font-bold text-slate-900 mt-0.5">Instructor Summary &amp; Aggregated Stats</h2>
+            <p class="text-sm text-slate-500 mt-1">Aggregated feedback stored locally in this browser across all submitted participant evaluations.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 no-print">
+            <button
+              type="button"
+              onclick="exportAllCSV()"
+              class="px-3.5 py-2 rounded-xl bg-clinical-700 text-white text-xs sm:text-sm font-medium hover:bg-clinical-800 transition"
+            >
+              Export All (CSV)
+            </button>
+            <button
+              type="button"
+              onclick="exportAllJSON()"
+              class="px-3.5 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs sm:text-sm font-medium hover:bg-slate-200 transition"
+            >
+              Export All (JSON)
+            </button>
+            <button
+              type="button"
+              id="clearAllStorageBtn"
+              onclick="toggleClearConfirm(true)"
+              class="px-3.5 py-2 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs sm:text-sm font-medium hover:bg-rose-100 transition"
+            >
+              Reset Data
+            </button>
+          </div>
+        </div>
+
+        <!-- Inline Confirm Box for Resetting LocalStorage (No alert/confirm used) -->
+        <div id="clearConfirmBox" class="hidden mt-4 rounded-xl bg-rose-50 border border-rose-200 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <p class="text-sm text-rose-800 font-medium">Are you sure you want to permanently delete all stored survey responses from this browser?</p>
+          <div class="flex items-center gap-2 shrink-0">
+            <button type="button" onclick="toggleClearConfirm(false)" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-medium text-slate-700 hover:bg-slate-50">Cancel</button>
+            <button type="button" onclick="clearAllResponses()" class="px-3 py-1.5 rounded-lg bg-rose-600 text-xs font-semibold text-white hover:bg-rose-700">Yes, Delete All</button>
+          </div>
+        </div>
+
+        <div id="instructorDashboardBody" class="mt-6"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-5 mt-10 no-print">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+      <span>Post-Operative MSK Rehabilitation Course &bull; Physiotherapist Participant Evaluation</span>
+      <span>Responses are saved locally on your device</span>
+    </div>
+  </footer>
+
+  <script>
+    // ==================== SURVEY CONFIGURATION & EXACT TEXT ====================
+    const STORAGE_KEY = 'msk_postop_course_evaluations_v1';
+
+    const SCALE_LABELS = {
+      0: 'Very Poor / Unsatisfactory',
+      1: 'Poor',
+      2: 'Fair',
+      3: 'Good',
+      4: 'Very Good',
+      5: 'Excellent / Outstanding'
+    };
+
+    const CORE_CRITERIA = [
+      {
+        id: 'q1_content',
+        number: '1',
+        title: 'Course Content',
+        description: 'Clinical depth, evidence-based protocols, and relevance to MSK post-op practice across all 5 modules.'
+      },
+      {
+        id: 'q2_teaching',
+        number: '2',
+        title: 'Style of Teaching',
+        description: 'Clarity of explanations, practical demonstrations, case discussions, and engagement.'
+      },
+      {
+        id: 'q3_time',
+        number: '3',
+        title: 'Time Management',
+        description: 'Pacing across the 6 long days, balance between theory and practical sessions, and adherence to schedule.'
+      },
+      {
+        id: 'q4_questions',
+        number: '4',
+        title: 'Responsiveness to Questions',
+        description: 'Instructor’s willingness, clarity, and clinical depth when answering participant questions.'
+      }
+    ];
+
+    const Q5_OPTIONS = [
+      'Exceeded my expectations — immediately applicable to my clinical practice',
+      'Met my expectations — solid clinical review and practical skills',
+      'Somewhat met my expectations — needed more depth or practical time',
+      'Did not meet my expectations'
+    ];
+
+    const Q6_OPTIONS = [
+      'Yes, definitely',
+      'Yes, with some reservations',
+      'Not sure',
+      'No'
+    ];
+
+    const Q7_MODULES = [
+      'Arthroplasty (Hip, Knee, Shoulder)',
+      'Arthroscopy (ACL, Meniscus, Rotator Cuff, Labrum)',
+      'Orthopedic Trauma & Fractures',
+      'Spine Surgeries (Discectomy, Fusion, Laminectomy)',
+      'Tendon Repairs (Achilles, Flexor/Extensor, Patellar/Quadriceps)'
+    ];
+
+    // Current form state
+    let formState = {
+      q1_content: null,
+      q2_teaching: null,
+      q3_time: null,
+      q4_questions: null,
+      q5_overall: '',
+      q6_recommend: '',
+      q7_modules: []
+    };
+
+    let lastSubmittedRecord = null;
+
+    // ==================== INITIALIZATION ====================
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCoreCriteria();
+      renderRadioGroup('q5Options', 'q5_overall', Q5_OPTIONS, (val) => {
+        formState.q5_overall = val;
+        document.getElementById('q5Error').classList.add('hidden');
+        document.getElementById('q5Wrapper').classList.remove('ring-2', 'ring-rose-300', 'bg-rose-50/40');
+        updateProgress();
+      });
+      renderRadioGroup('q6Options', 'q6_recommend', Q6_OPTIONS, (val) => {
+        formState.q6_recommend = val;
+        document.getElementById('q6Error').classList.add('hidden');
+        document.getElementById('q6Wrapper').classList.remove('ring-2', 'ring-rose-300', 'bg-rose-50/40');
+        updateProgress();
+      });
+      renderModuleCheckboxes();
+      updateResponseBadge();
+      updateProgress();
+
+      document.getElementById('evaluationForm').addEventListener('submit', handleFormSubmit);
+    });
+
+    // ==================== RENDER FORM CONTROLS ====================
+    function renderCoreCriteria() {
+      const container = document.getElementById('coreCriteriaContainer');
+      container.innerHTML = CORE_CRITERIA.map((item) => {
+        const buttonsHtml = [0, 1, 2, 3, 4, 5].map((score) => `
+          <button
+            type="button"
+            data-criterion="${item.id}"
+            data-score="${score}"
+            onclick="selectRating('${item.id}', ${score})"
+            aria-label="${item.title}: ${score} - ${SCALE_LABELS[score]}"
+            class="rating-btn group flex flex-col items-center justify-center py-2.5 px-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:border-clinical-600 hover:bg-clinical-50 transition focus:outline-none focus:ring-2 focus:ring-clinical-600/30"
+          >
+            <span class="text-base font-bold text-slate-800 group-hover:text-clinical-800">${score}</span>
+            <span class="text-[10px] leading-tight text-slate-500 text-center mt-0.5 line-clamp-1">${score === 0 ? 'Very Poor' : score === 5 ? 'Excellent' : SCALE_LABELS[score]}</span>
+          </button>
+        `).join('');
+
+        return `
+          <div id="wrapper_${item.id}" class="rounded-xl border border-slate-200/90 p-4 sm:p-5 bg-white transition">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2 mb-3.5">
+              <div>
+                <h3 class="text-base font-semibold text-slate-900">
+                  ${item.number}. ${item.title}: <span class="text-rose-600">*</span>
+                </h3>
+                <p class="text-sm text-slate-600 mt-0.5">${item.description}</p>
+              </div>
+              <span id="badge_${item.id}" class="inline-flex items-center self-start px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 text-slate-500 shrink-0">
+                Not rated
+              </span>
+            </div>
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+              ${buttonsHtml}
+            </div>
+            <p id="error_${item.id}" class="hidden text-xs font-medium text-rose-600 mt-2">Please select a rating from 0 to 5.</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectRating(criterionId, score) {
+      formState[criterionId] = score;
+
+      // Update button styles
+      const buttons = document.querySelectorAll(`button[data-criterion="${criterionId}"]`);
+      buttons.forEach((btn) => {
+        const btnScore = Number(btn.getAttribute('data-score'));
+        const numSpan = btn.querySelector('span:first-child');
+        const labelSpan = btn.querySelector('span:last-child');
+        if (btnScore === score) {
+          btn.className = 'rating-btn flex flex-col items-center justify-center py-2.5 px-2 rounded-xl border-2 border-clinical-700 bg-clinical-700 text-white shadow-sm transition';
+          numSpan.className = 'text-base font-bold text-white';
+          labelSpan.className = 'text-[10px] leading-tight text-teal-100 text-center mt-0.5 line-clamp-1';
+        } else {
+          btn.className = 'rating-btn group flex flex-col items-center justify-center py-2.5 px-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:border-clinical-600 hover:bg-clinical-50 transition focus:outline-none focus:ring-2 focus:ring-clinical-600/30';
+          numSpan.className = 'text-base font-bold text-slate-800 group-hover:text-clinical-800';
+          labelSpan.className = 'text-[10px] leading-tight text-slate-500 text-center mt-0.5 line-clamp-1';
+        }
+      });
+
+      // Update selected badge & clear validation error
+      const badge = document.getElementById(`badge_${criterionId}`);
+      badge.textContent = `${score} / 5 — ${SCALE_LABELS[score]}`;
+      badge.className = 'inline-flex items-center self-start px-2.5 py-1 rounded-lg text-xs font-semibold bg-clinical-50 text-clinical-800 border border-clinical-200 shrink-0';
+
+      document.getElementById(`error_${criterionId}`).classList.add('hidden');
+      document.getElementById(`wrapper_${criterionId}`).classList.remove('border-rose-300', 'bg-rose-50/30');
+
+      updateProgress();
+    }
+
+    function renderRadioGroup(containerId, groupName, options, onChangeCallback) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = options.map((opt, idx) => {
+        const inputId = `${groupName}_${idx}`;
+        return `
+          <label for="${inputId}" class="radio-card flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-clinical-50/60 hover:border-clinical-600 cursor-pointer transition">
+            <input
+              type="radio"
+              id="${inputId}"
+              name="${groupName}"
+              value="${escapeHtml(opt)}"
+              class="mt-0.5 h-4 w-4 text-clinical-700 border-slate-300 focus:ring-clinical-600"
+            />
+            <span class="text-sm font-medium text-slate-800 leading-snug">${escapeHtml(opt)}</span>
+          </label>
+        `;
+      }).join('');
+
+      container.querySelectorAll(`input[name="${groupName}"]`).forEach((radio) => {
+        radio.addEventListener('change', (e) => {
+          // Highlight active card
+          container.querySelectorAll('.radio-card').forEach((lbl) => {
+            lbl.classList.remove('border-clinical-700', 'bg-clinical-50', 'ring-1', 'ring-clinical-700');
+            lbl.classList.add('border-slate-200', 'bg-slate-50/50');
+          });
+          const parentLabel = e.target.closest('.radio-card');
+          parentLabel.classList.remove('border-slate-200', 'bg-slate-50/50');
+          parentLabel.classList.add('border-clinical-700', 'bg-clinical-50', 'ring-1', 'ring-clinical-700');
+          onChangeCallback(e.target.value);
+        });
+      });
+    }
+
+    function renderModuleCheckboxes() {
+      const container = document.getElementById('q7Options');
+      container.innerHTML = Q7_MODULES.map((mod, idx) => {
+        const id = `q7_mod_${idx}`;
+        return `
+          <label for="${id}" class="module-card flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-clinical-50/60 hover:border-clinical-600 cursor-pointer transition">
+            <input
+              type="checkbox"
+              id="${id}"
+              value="${escapeHtml(mod)}"
+              class="mt-0.5 h-4 w-4 rounded text-clinical-700 border-slate-300 focus:ring-clinical-600"
+            />
+            <span class="text-sm font-medium text-slate-800 leading-snug">${escapeHtml(mod)}</span>
+          </label>
+        `;
+      }).join('');
+
+      container.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+        cb.addEventListener('change', (e) => {
+          const parent = e.target.closest('.module-card');
+          if (e.target.checked) {
+            parent.classList.remove('border-slate-200', 'bg-slate-50/50');
+            parent.classList.add('border-clinical-700', 'bg-clinical-50', 'ring-1', 'ring-clinical-700');
+          } else {
+            parent.classList.add('border-slate-200', 'bg-slate-50/50');
+            parent.classList.remove('border-clinical-700', 'bg-clinical-50', 'ring-1', 'ring-clinical-700');
+          }
+          formState.q7_modules = Array.from(container.querySelectorAll('input[type="checkbox"]:checked')).map((el) => el.value);
+        });
+      });
+    }
+
+    // ==================== PROGRESS & VALIDATION ====================
+    function updateProgress() {
+      let answered = 0;
+      if (formState.q1_content !== null) answered++;
+      if (formState.q2_teaching !== null) answered++;
+      if (formState.q3_time !== null) answered++;
+      if (formState.q4_questions !== null) answered++;
+      if (formState.q5_overall) answered++;
+      if (formState.q6_recommend) answered++;
+
+      const pct = Math.round((answered / 6) * 100);
+      document.getElementById('progressBarFill').style.width = `${pct}%`;
+      document.getElementById('completionStatusText').textContent = `${answered} of 6 required answered`;
+    }
+
+    function validateForm() {
+      const missing = [];
+      let firstInvalidElement = null;
+
+      CORE_CRITERIA.forEach((item) => {
+        if (formState[item.id] === null) {
+          missing.push(`Q${item.number} (${item.title})`);
+          document.getElementById(`error_${item.id}`).classList.remove('hidden');
+          const wrap = document.getElementById(`wrapper_${item.id}`);
+          wrap.classList.add('border-rose-300', 'bg-rose-50/30');
+          if (!firstInvalidElement) firstInvalidElement = wrap;
+        }
+      });
+
+      if (!formState.q5_overall) {
+        missing.push('Q5 (Overall Experience)');
+        document.getElementById('q5Error').classList.remove('hidden');
+        const wrap = document.getElementById('q5Wrapper');
+        wrap.classList.add('ring-2', 'ring-rose-300', 'bg-rose-50/40');
+        if (!firstInvalidElement) firstInvalidElement = wrap;
+      }
+
+      if (!formState.q6_recommend) {
+        missing.push('Q6 (Recommendation)');
+        document.getElementById('q6Error').classList.remove('hidden');
+        const wrap = document.getElementById('q6Wrapper');
+        wrap.classList.add('ring-2', 'ring-rose-300', 'bg-rose-50/40');
+        if (!firstInvalidElement) firstInvalidElement = wrap;
+      }
+
+      const banner = document.getElementById('validationBanner');
+      if (missing.length > 0) {
+        document.getElementById('validationDetails').textContent = `Missing required items: ${missing.join(', ')}`;
+        banner.classList.remove('hidden');
+        firstInvalidElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return false;
+      }
+
+      banner.classList.add('hidden');
+      return true;
+    }
+
+    // ==================== SUBMIT & SUMMARY ====================
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      if (!validateForm()) return;
+
+      const avgScore = Number(
+        ((formState.q1_content + formState.q2_teaching + formState.q3_time + formState.q4_questions) / 4).toFixed(2)
+      );
+
+      const record = {
+        id: 'EVAL-' + Date.now().toString(36).toUpperCase(),
+        submittedAt: new Date().toISOString(),
+        participantName: document.getElementById('participantName').value.trim(),
+        clinicalSpecialty: document.getElementById('clinicalSpecialty').value.trim(),
+        ratings: {
+          q1_content: formState.q1_content,
+          q2_teaching: formState.q2_teaching,
+          q3_time: formState.q3_time,
+          q4_questions: formState.q4_questions
+        },
+        averageScore: avgScore,
+        q5_overall: formState.q5_overall,
+        q6_recommend: formState.q6_recommend,
+        q7_modules: [...formState.q7_modules],
+        q8_recommendations: document.getElementById('q8Recommendations').value.trim(),
+        q9_futureCourses: document.getElementById('q9FutureCourses').value.trim()
+      };
+
+      saveRecordToStorage(record);
+      lastSubmittedRecord = record;
+      renderConfirmationSummary(record);
+      switchView('confirmation');
+      showToast('Evaluation submitted successfully!');
+    }
+
+    function renderConfirmationSummary(record) {
+      document.getElementById('summaryAvgScore').textContent = record.averageScore.toFixed(2);
+      const formattedDate = new Date(record.submittedAt).toLocaleString();
+
+      const criteriaRows = CORE_CRITERIA.map((c) => {
+        const val = record.ratings[c.id];
+        return `
+          <div class="flex items-center justify-between py-2.5 border-b border-slate-100 last:border-none gap-4">
+            <div>
+              <span class="text-sm font-semibold text-slate-800">${c.number}. ${c.title}</span>
+              <span class="block text-xs text-slate-500">${SCALE_LABELS[val]}</span>
+            </div>
+            <span class="inline-flex items-center px-3 py-1 rounded-lg bg-clinical-50 border border-clinical-200 text-clinical-800 font-bold text-sm shrink-0">
+              ${val} / 5
+            </span>
+          </div>
+        `;
+      }).join('');
+
+      const modulesHtml = record.q7_modules.length > 0
+        ? `<div class="flex flex-wrap gap-2 mt-1.5">${record.q7_modules.map((m) => `<span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-medium">${escapeHtml(m)}</span>`).join('')}</div>`
+        : `<p class="text-sm text-slate-500 italic mt-1">None selected</p>`;
+
+      document.getElementById('summaryContentBody').innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 pb-4 border-b border-slate-100">
+          <span>Reference ID: <strong class="text-slate-700">${record.id}</strong></span>
+          <span>Submitted: <strong class="text-slate-700">${formattedDate}</strong></span>
+        </div>
+
+        ${(record.participantName || record.clinicalSpecialty) ? `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 rounded-xl p-4 border border-slate-200/70">
+            <div>
+              <span class="text-xs uppercase tracking-wider text-slate-500 block">Participant Name</span>
+              <span class="text-sm font-semibold text-slate-800">${escapeHtml(record.participantName || 'Anonymous')}</span>
+            </div>
+            <div>
+              <span class="text-xs uppercase tracking-wider text-slate-500 block">Clinical Specialty</span>
+              <span class="text-sm font-semibold text-slate-800">${escapeHtml(record.clinicalSpecialty || 'Not specified')}</span>
+            </div>
+          </div>
+        ` : ''}
+
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-clinical-700 mb-2">Section 1: Core Course Evaluation</h3>
+          <div class="rounded-xl border border-slate-200 px-4 py-1 bg-white">
+            ${criteriaRows}
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="rounded-xl border border-slate-200 p-4 bg-slate-50/60">
+            <span class="text-xs font-bold uppercase tracking-wider text-clinical-700 block">5. Overall Course Rating</span>
+            <p class="text-sm font-semibold text-slate-800 mt-1.5">${escapeHtml(record.q5_overall)}</p>
+          </div>
+          <div class="rounded-xl border border-slate-200 p-4 bg-slate-50/60">
+            <span class="text-xs font-bold uppercase tracking-wider text-clinical-700 block">6. Would Recommend</span>
+            <p class="text-sm font-semibold text-slate-800 mt-1.5">${escapeHtml(record.q6_recommend)}</p>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="rounded-xl border border-slate-200 p-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-clinical-700 block">7. Most Valuable Modules</span>
+            ${modulesHtml}
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="rounded-xl border border-slate-200 p-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-clinical-700 block">8. Recommendations to Improve</span>
+              <p class="text-sm text-slate-700 mt-1.5 whitespace-pre-line">${record.q8_recommendations ? escapeHtml(record.q8_recommendations) : '<span class="italic text-slate-400">No comments provided</span>'}</p>
+            </div>
+            <div class="rounded-xl border border-slate-200 p-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-clinical-700 block">9. Future Courses of Interest</span>
+              <p class="text-sm text-slate-700 mt-1.5 whitespace-pre-line">${record.q9_futureCourses ? escapeHtml(record.q9_futureCourses) : '<span class="italic text-slate-400">No comments provided</span>'}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==================== LOCAL STORAGE & INSTRUCTOR ANALYTICS ====================
+    function getStoredRecords() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (err) {
+        return [];
+      }
+    }
+
+    function saveRecordToStorage(record) {
+      try {
+        const list = getStoredRecords();
+        list.unshift(record);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+        updateResponseBadge();
+      } catch (err) {
+        console.error('Storage error:', err);
+      }
+    }
+
+    function updateResponseBadge() {
+      const count = getStoredRecords().length;
+      document.getElementById('responseCountBadge').textContent = count;
+    }
+
+    function toggleClearConfirm(show) {
+      const box = document.getElementById('clearConfirmBox');
+      if (show) box.classList.remove('hidden');
+      else box.classList.add('hidden');
+    }
+
+    function clearAllResponses() {
+      localStorage.removeItem(STORAGE_KEY);
+      toggleClearConfirm(false);
+      updateResponseBadge();
+      renderInstructorDashboard();
+      showToast('All stored responses cleared');
+    }
+
+    function renderInstructorDashboard() {
+      const records = getStoredRecords();
+      const container = document.getElementById('instructorDashboardBody');
+
+      if (records.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-12 px-4 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/50">
+            <p class="text-base font-semibold text-slate-700">No evaluations recorded yet</p>
+            <p class="text-sm text-slate-500 mt-1">Complete and submit the survey form to view aggregated scores, module rankings, and open feedback here.</p>
+            <button type="button" onclick="switchView('survey')" class="mt-4 px-5 py-2.5 rounded-xl bg-clinical-700 text-white text-sm font-medium hover:bg-clinical-800 transition">
+              Go to Survey Form
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      const total = records.length;
+      const overallMean = (records.reduce((acc, r) => acc + r.averageScore, 0) / total).toFixed(2);
+      const definitelyCount = records.filter((r) => r.q6_recommend === 'Yes, definitely').length;
+      const recommendRate = Math.round((definitelyCount / total) * 100);
+
+      // Core criteria averages
+      const criteriaStatsHtml = CORE_CRITERIA.map((c) => {
+        const mean = (records.reduce((acc, r) => acc + r.ratings[c.id], 0) / total).toFixed(2);
+        const pct = Math.round((Number(mean) / 5) * 100);
+        return `
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/40">
+            <div class="flex items-center justify-between text-sm font-semibold text-slate-800 mb-1.5">
+              <span>${c.number}. ${c.title}</span>
+              <span class="text-clinical-800 font-bold">${mean} / 5.0</span>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
+              <div class="bg-clinical-600 h-2.5 rounded-full" style="width: ${pct}%;"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Module counts
+      const moduleCounts = Q7_MODULES.map((mod) => {
+        const count = records.filter((r) => (r.q7_modules || []).includes(mod)).length;
+        const pct = Math.round((count / total) * 100);
+        return { mod, count, pct };
+      }).sort((a, b) => b.count - a.count);
+
+      const modulesStatsHtml = moduleCounts.map((item) => `
+        <div class="flex items-center justify-between gap-3 py-2 border-b border-slate-100 last:border-none">
+          <span class="text-sm text-slate-700 font-medium">${escapeHtml(item.mod)}</span>
+          <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-clinical-50 text-clinical-800 border border-clinical-200 shrink-0">
+            ${item.count} (${item.pct}%)
+          </span>
+        </div>
+      `).join('');
+
+      // Q5 & Q6 Breakdown
+      const q5Breakdown = Q5_OPTIONS.map((opt) => {
+        const count = records.filter((r) => r.q5_overall === opt).length;
+        return `<li class="flex justify-between gap-2 text-xs py-1.5 border-b border-slate-100 last:border-none"><span class="text-slate-700">${escapeHtml(opt)}</span><strong class="text-slate-900 shrink-0">${count}</strong></li>`;
+      }).join('');
+
+      const q6Breakdown = Q6_OPTIONS.map((opt) => {
+        const count = records.filter((r) => r.q6_recommend === opt).length;
+        return `<li class="flex justify-between gap-2 text-xs py-1.5 border-b border-slate-100 last:border-none"><span class="text-slate-700">${escapeHtml(opt)}</span><strong class="text-slate-900 shrink-0">${count}</strong></li>`;
+      }).join('');
+
+      // Individual Open Feedback & Responses
+      const responsesListHtml = records.map((r) => `
+        <div class="rounded-xl border border-slate-200 p-4 bg-white space-y-2.5">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
+            <div>
+              <span class="text-sm font-bold text-slate-800">${escapeHtml(r.participantName || 'Anonymous Physiotherapist')}</span>
+              ${r.clinicalSpecialty ? `<span class="text-xs text-slate-500 ml-2">(${escapeHtml(r.clinicalSpecialty)})</span>` : ''}
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-md bg-clinical-50 text-clinical-800 border border-clinical-200">Avg: ${r.averageScore.toFixed(2)}/5</span>
+              <span class="text-xs text-slate-400">${new Date(r.submittedAt).toLocaleDateString()}</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="bg-slate-50 p-2.5 rounded-lg">
+              <strong class="text-slate-600 block mb-0.5">Recommendations to Improve:</strong>
+              <span class="text-slate-800">${r.q8_recommendations ? escapeHtml(r.q8_recommendations) : '—'}</span>
+            </div>
+            <div class="bg-slate-50 p-2.5 rounded-lg">
+              <strong class="text-slate-600 block mb-0.5">Future Courses of Interest:</strong>
+              <span class="text-slate-800">${r.q9_futureCourses ? escapeHtml(r.q9_futureCourses) : '—'}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      container.innerHTML = `
+        <!-- Top KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <div class="rounded-xl bg-clinical-50 border border-clinical-200 p-4">
+            <span class="text-xs font-semibold uppercase tracking-wider text-clinical-800">Total Participants</span>
+            <p class="text-3xl font-bold text-clinical-900 mt-1">${total}</p>
+          </div>
+          <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
+            <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Overall Course Mean</span>
+            <p class="text-3xl font-bold text-slate-900 mt-1">${overallMean} <span class="text-sm font-normal text-slate-500">/ 5.0</span></p>
+          </div>
+          <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
+            <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">"Yes, definitely" Recommend</span>
+            <p class="text-3xl font-bold text-slate-900 mt-1">${recommendRate}% <span class="text-sm font-normal text-slate-500">(${definitelyCount}/${total})</span></p>
+          </div>
+        </div>
+
+        <!-- Core Criteria Bars -->
+        <div class="mb-6">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 mb-3">Section 1: Mean Scores by Criterion</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            ${criteriaStatsHtml}
+          </div>
+        </div>
+
+        <!-- Experience & Module Rankings -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div class="rounded-xl border border-slate-200 p-4">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 mb-2">Most Valuable Modules (Q7)</h3>
+            ${modulesStatsHtml}
+          </div>
+          <div class="space-y-4">
+            <div class="rounded-xl border border-slate-200 p-4">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 mb-2">Overall Expectations (Q5)</h3>
+              <ul>${q5Breakdown}</ul>
+            </div>
+            <div class="rounded-xl border border-slate-200 p-4">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 mb-2">Recommendation Breakdown (Q6)</h3>
+              <ul>${q6Breakdown}</ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Individual Submissions Log -->
+        <div>
+          <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 mb-3">Individual Responses &amp; Open Feedback (${total})</h3>
+          <div class="space-y-3">
+            ${responsesListHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    // ==================== NAVIGATION & FORM RESET ====================
+    function switchView(viewName) {
+      const surveyView = document.getElementById('surveyView');
+      const confirmationView = document.getElementById('confirmationView');
+      const instructorView = document.getElementById('instructorView');
+      const progressContainer = document.getElementById('progressBarContainer');
+
+      const navSurveyBtn = document.getElementById('navSurveyBtn');
+      const navInstructorBtn = document.getElementById('navInstructorBtn');
+
+      surveyView.classList.add('hidden');
+      confirmationView.classList.add('hidden');
+      instructorView.classList.add('hidden');
+
+      if (viewName === 'survey') {
+        surveyView.classList.remove('hidden');
+        progressContainer.classList.remove('hidden');
+        navSurveyBtn.className = 'px-3.5 py-2 rounded-lg text-sm font-medium bg-clinical-700 text-white shadow-sm transition hover:bg-clinical-800';
+        navInstructorBtn.className = 'px-3.5 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition flex items-center gap-1.5';
+      } else if (viewName === 'confirmation') {
+        confirmationView.classList.remove('hidden');
+        progressContainer.classList.add('hidden');
+        navSurveyBtn.className = 'px-3.5 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition';
+        navInstructorBtn.className = 'px-3.5 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition flex items-center gap-1.5';
+      } else if (viewName === 'instructor') {
+        renderInstructorDashboard();
+        instructorView.classList.remove('hidden');
+        progressContainer.classList.add('hidden');
+        navInstructorBtn.className = 'px-3.5 py-2 rounded-lg text-sm font-medium bg-clinical-700 text-white shadow-sm transition flex items-center gap-1.5';
+        navSurveyBtn.className = 'px-3.5 py-2 rounded-lg text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition';
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetForm() {
+      formState = {
+        q1_content: null,
+        q2_teaching: null,
+        q3_time: null,
+        q4_questions: null,
+        q5_overall: '',
+        q6_recommend: '',
+        q7_modules: []
+      };
+
+      document.getElementById('participantName').value = '';
+      document.getElementById('clinicalSpecialty').value = '';
+      document.getElementById('q8Recommendations').value = '';
+      document.getElementById('q9FutureCourses').value = '';
+      document.getElementById('validationBanner').classList.add('hidden');
+
+      renderCoreCriteria();
+      renderRadioGroup('q5Options', 'q5_overall', Q5_OPTIONS, (val) => {
+        formState.q5_overall = val;
+        document.getElementById('q5Error').classList.add('hidden');
+        document.getElementById('q5Wrapper').classList.remove('ring-2', 'ring-rose-300', 'bg-rose-50/40');
+        updateProgress();
+      });
+      renderRadioGroup('q6Options', 'q6_recommend', Q6_OPTIONS, (val) => {
+        formState.q6_recommend = val;
+        document.getElementById('q6Error').classList.add('hidden');
+        document.getElementById('q6Wrapper').classList.remove('ring-2', 'ring-rose-300', 'bg-rose-50/40');
+        updateProgress();
+      });
+      renderModuleCheckboxes();
+      updateProgress();
+    }
+
+    function startAnotherResponse() {
+      resetForm();
+      switchView('survey');
+    }
+
+    // ==================== EXPORT & CLIPBOARD UTILITIES ====================
+    function copySummaryToClipboard() {
+      if (!lastSubmittedRecord) return;
+      const r = lastSubmittedRecord;
+      const lines = [
+        'POST-OPERATIVE MSK REHABILITATION COURSE: PARTICIPANT EVALUATION SURVEY',
+        `Reference ID: ${r.id} | Date: ${new Date(r.submittedAt).toLocaleString()}`,
+        r.participantName ? `Participant: ${r.participantName}` : null,
+        r.clinicalSpecialty ? `Specialty: ${r.clinicalSpecialty}` : null,
+        '',
+        'SECTION 1: CORE COURSE EVALUATION (0-5 Scale)',
+        `1. Course Content: ${r.ratings.q1_content}/5 (${SCALE_LABELS[r.ratings.q1_content]})`,
+        `2. Style of Teaching: ${r.ratings.q2_teaching}/5 (${SCALE_LABELS[r.ratings.q2_teaching]})`,
+        `3. Time Management: ${r.ratings.q3_time}/5 (${SCALE_LABELS[r.ratings.q3_time]})`,
+        `4. Responsiveness to Questions: ${r.ratings.q4_questions}/5 (${SCALE_LABELS[r.ratings.q4_questions]})`,
+        `Mean Core Score: ${r.averageScore.toFixed(2)} / 5.00`,
+        '',
+        'SECTION 2: OVERALL EXPERIENCE & RECOMMENDATION',
+        `5. Overall Experience: ${r.q5_overall}`,
+        `6. Recommend to Other Physiotherapists: ${r.q6_recommend}`,
+        '',
+        'SECTION 3: OPEN FEEDBACK & FUTURE COURSES',
+        `7. Most Valuable Modules: ${r.q7_modules.length ? r.q7_modules.join('; ') : 'None selected'}`,
+        `8. Recommendations to Improve: ${r.q8_recommendations || 'N/A'}`,
+        `9. Further Courses of Interest: ${r.q9_futureCourses || 'N/A'}`
+      ].filter((line) => line !== null).join('\n');
+
+      const tempArea = document.createElement('textarea');
+      tempArea.value = lines;
+      tempArea.style.position = 'fixed';
+      tempArea.style.left = '-9999px';
+      document.body.appendChild(tempArea);
+      tempArea.select();
+      try {
+        document.execCommand('copy');
+        showToast('Formatted evaluation copied to clipboard');
+      } catch (err) {
+        showToast('Unable to copy text');
+      }
+      document.body.removeChild(tempArea);
+    }
+
+    function recordsToCSV(records) {
+      const headers = [
+        'Reference ID',
+        'Submitted At',
+        'Participant Name',
+        'Clinical Specialty',
+        '1. Course Content (0-5)',
+        '2. Style of Teaching (0-5)',
+        '3. Time Management (0-5)',
+        '4. Responsiveness to Questions (0-5)',
+        'Mean Core Score',
+        '5. Overall Experience',
+        '6. Recommend Course',
+        '7. Most Valuable Modules',
+        '8. Recommendations to Improve',
+        '9. Further Courses of Interest'
+      ];
+
+      const escapeCsv = (val) => `"${String(val ?? '').replace(/"/g, '""')}"`;
+
+      const rows = records.map((r) => [
+        r.id,
+        r.submittedAt,
+        r.participantName,
+        r.clinicalSpecialty,
+        r.ratings.q1_content,
+        r.ratings.q2_teaching,
+        r.ratings.q3_time,
+        r.ratings.q4_questions,
+        r.averageScore.toFixed(2),
+        r.q5_overall,
+        r.q6_recommend,
+        (r.q7_modules || []).join('; '),
+        r.q8_recommendations,
+        r.q9_futureCourses
+      ].map(escapeCsv).join(','));
+
+      return [headers.map(escapeCsv).join(','), ...rows].join('\n');
+    }
+
+    function downloadFile(content, filename, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadSingleCSV() {
+      if (!lastSubmittedRecord) return;
+      downloadFile(recordsToCSV([lastSubmittedRecord]), `${lastSubmittedRecord.id}_MSK_Course_Evaluation.csv`, 'text/csv;charset=utf-8;');
+      showToast('CSV downloaded');
+    }
+
+    function downloadSingleJSON() {
+      if (!lastSubmittedRecord) return;
+      downloadFile(JSON.stringify(lastSubmittedRecord, null, 2), `${lastSubmittedRecord.id}_MSK_Course_Evaluation.json`, 'application/json');
+      showToast('JSON downloaded');
+    }
+
+    function exportAllCSV() {
+      const records = getStoredRecords();
+      if (!records.length) return showToast('No responses to export');
+      downloadFile(recordsToCSV(records), `All_MSK_Course_Evaluations_${new Date().toISOString().slice(0, 10)}.csv`, 'text/csv;charset=utf-8;');
+      showToast(`Exported ${records.length} responses to CSV`);
+    }
+
+    function exportAllJSON() {
+      const records = getStoredRecords();
+      if (!records.length) return showToast('No responses to export');
+      downloadFile(JSON.stringify(records, null, 2), `All_MSK_Course_Evaluations_${new Date().toISOString().slice(0, 10)}.json`, 'application/json');
+      showToast(`Exported ${records.length} responses to JSON`);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastMessage');
+      document.getElementById('toastText').textContent = msg;
+      toast.classList.remove('hidden');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3000);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>
